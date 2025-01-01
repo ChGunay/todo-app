@@ -25,13 +25,13 @@ const registerJson = {
         { value: "user", text: "User" },
         { value: "admin", text: "Admin" }
       ],
-      defaultValue: "user"  // Varsayılan user
+      defaultValue: "user"  
     }
   ]
 };
 
 function sendRegisterData(data) {
-  const postData = data.data; // { email: '...', password: '...', role: '...' }
+  const postData = data.data;
   $.ajax({
     url: `${API_URL}/auth/register`,
     method: "POST",
@@ -39,7 +39,7 @@ function sendRegisterData(data) {
     contentType: "application/json",
     success: function(res) {
       alert(res.message);
-      // Başarılı kayıt sonrası login sayfasına yönlendirelim
+
       window.location.href = 'login.html';
     },
     error: function(err) {
