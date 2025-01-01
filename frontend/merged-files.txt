@@ -1,0 +1,1077 @@
+
+// categories.html
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Kategoriler</title>
+  <!-- Bootstrap CSS -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+  />
+  <!-- DataTables CSS -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css"
+  />
+</head>
+<body class="bg-light">
+  <div class="container my-5">
+    <h1 class="mb-4">Kategoriler</h1>
+    <button id="btn-new-category" class="btn btn-primary mb-3">Yeni Kategori Ekle</button>
+    <table id="categoriesTable" class="display" style="width:100%">
+      <thead>
+        <tr>
+          <th>İsim</th>
+          <th>İşlemler</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <a href="./index.html" class="btn btn-outline-secondary mt-3">Ana Sayfa</a>
+  </div>
+
+  <!-- jQuery -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- DataTables JS -->
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+  <!-- SurveyJS -->
+  <link href="https://unpkg.com/survey-core@1.10.5/modern.css" type="text/css" rel="stylesheet" />
+  <script src="https://unpkg.com/survey-core@1.10.5/survey.core.min.js"></script>
+<script src="https://unpkg.com/survey-jquery@1.10.5/survey.jquery.min.js"></script>
+  <script src="scripts/config.js"></script>
+  <script src="scripts/categories.js"></script>
+</body>
+</html>
+
+// index.html
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Todo Uygulaması - Ana Sayfa</title>
+  <!-- Bootstrap CSS -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+  />
+</head>
+<body class="bg-light">
+  <div class="container my-5">
+    <h1 class="mb-4">Todo Uygulaması - Ana Sayfa</h1>
+    <div class="d-grid gap-2">
+      <a href="./login.html" class="btn btn-primary">Giriş Yap</a>
+      <a href="./register.html" class="btn btn-secondary">Kayıt Ol</a>
+      <a href="./tasks.html" class="btn btn-success">Görevler</a>
+      <a href="./categories.html" class="btn btn-info">Kategoriler</a>
+      <a href="./users.html" class="btn btn-warning">Kullanıcılar</a>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS + Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+// login.html
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Giriş Yap</title>
+  <!-- Bootstrap CSS -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+  />
+  <!-- SurveyJS Tema (modern) -->
+  <link
+    href="https://unpkg.com/survey-core@1.10.5/modern.css"
+    type="text/css"
+    rel="stylesheet"
+  />
+</head>
+<body class="bg-light">
+  <div class="container my-5">
+    <h1 class="mb-4">Giriş Yap</h1>
+    <div id="surveyElement"></div>
+    <div id="surveyResult"></div>
+    <a href="./index.html" class="btn btn-outline-secondary mt-3">Ana Sayfa</a>
+  </div>
+
+  <!-- jQuery -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- SurveyJS (jQuery sürümü) -->
+<script src="https://unpkg.com/survey-core@1.10.5/survey.core.min.js"></script>
+<script src="https://unpkg.com/survey-jquery@1.10.5/survey.jquery.min.js"></script>
+
+<!-- Config (API_URL) -->
+<script src="scripts/config.js"></script>
+
+<!-- Giriş sayfası kodunuz -->
+<script src="scripts/login.js"></script>
+
+</body>
+</html>
+
+
+// merged-files.txt
+
+// categories.html
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Kategoriler</title>
+  <!-- Bootstrap CSS -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+  />
+  <!-- DataTables CSS -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css"
+  />
+</head>
+<body class="bg-light">
+  <div class="container my-5">
+    <h1 class="mb-4">Kategoriler</h1>
+    <button id="btn-new-category" class="btn btn-primary mb-3">Yeni Kategori Ekle</button>
+    <table id="categoriesTable" class="display" style="width:100%">
+      <thead>
+        <tr>
+          <th>İsim</th>
+          <th>İşlemler</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <a href="./index.html" class="btn btn-outline-secondary mt-3">Ana Sayfa</a>
+  </div>
+
+  <!-- jQuery -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- DataTables JS -->
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+  <!-- SurveyJS -->
+  <link href="https://unpkg.com/survey-core@1.10.5/modern.css" type="text/css" rel="stylesheet" />
+  <script src="https://unpkg.com/survey-core@1.10.5/survey.core.min.js"></script>
+<script src="https://unpkg.com/survey-jquery@1.10.5/survey.jquery.min.js"></script>
+  <script src="scripts/config.js"></script>
+  <script src="scripts/categories.js"></script>
+</body>
+</html>
+
+// index.html
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Todo Uygulaması - Ana Sayfa</title>
+  <!-- Bootstrap CSS -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+  />
+</head>
+<body class="bg-light">
+  <div class="container my-5">
+    <h1 class="mb-4">Todo Uygulaması - Ana Sayfa</h1>
+    <div class="d-grid gap-2">
+      <a href="./login.html" class="btn btn-primary">Giriş Yap</a>
+      <a href="./register.html" class="btn btn-secondary">Kayıt Ol</a>
+      <a href="./tasks.html" class="btn btn-success">Görevler</a>
+      <a href="./categories.html" class="btn btn-info">Kategoriler</a>
+      <a href="./users.html" class="btn btn-warning">Kullanıcılar</a>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS + Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+// login.html
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Giriş Yap</title>
+  <!-- Bootstrap CSS -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+  />
+  <!-- SurveyJS Tema (modern) -->
+  <link
+    href="https://unpkg.com/survey-core@1.10.5/modern.css"
+    type="text/css"
+    rel="stylesheet"
+  />
+</head>
+<body class="bg-light">
+  <div class="container my-5">
+    <h1 class="mb-4">Giriş Yap</h1>
+    <div id="surveyElement"></div>
+    <div id="surveyResult"></div>
+    <a href="./index.html" class="btn btn-outline-secondary mt-3">Ana Sayfa</a>
+  </div>
+
+  <!-- jQuery -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- SurveyJS (jQuery sürümü) -->
+<script src="https://unpkg.com/survey-core@1.10.5/survey.core.min.js"></script>
+<script src="https://unpkg.com/survey-jquery@1.10.5/survey.jquery.min.js"></script>
+
+<!-- Config (API_URL) -->
+<script src="scripts/config.js"></script>
+
+<!-- Giriş sayfası kodunuz -->
+<script src="scripts/login.js"></script>
+
+</body>
+</html>
+
+
+
+// register.html
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Kayıt Ol</title>
+  <!-- Bootstrap CSS -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+  />
+  <!-- SurveyJS Tema (modern) -->
+  <link
+    href="https://unpkg.com/survey-core@1.10.5/modern.css"
+    type="text/css"
+    rel="stylesheet"
+  />
+</head>
+<body class="bg-light">
+  <div class="container my-5">
+    <h1 class="mb-4">Kayıt Ol</h1>
+    <div id="surveyElement"></div>
+    <div id="surveyResult"></div>
+    <a href="./index.html" class="btn btn-outline-secondary mt-3">Ana Sayfa</a>
+  </div>
+
+  <!-- jQuery -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- SurveyJS (jQuery sürümü) -->
+  <script src="https://unpkg.com/survey-core@1.10.5/survey.core.min.js"></script>
+  <script src="https://unpkg.com/survey-jquery@1.10.5/survey.jquery.min.js"></script>
+  
+  <!-- Config ve kendi script dosyanız -->
+  <script src="scripts/config.js"></script>
+  <script src="scripts/register.js"></script>
+</body>
+</html>
+
+
+// categories.js
+/**
+ * Kategoriler sayfası:
+ * - DataTables ile listeleme
+ * - "Yeni Kategori Ekle" butonu -> SurveyJS
+ * - Satır bazında güncelleme / silme
+ */
+Survey.StylesManager.applyTheme("modern");
+
+let categoriesTable;
+
+const categorySurveyJson = {
+  title: "Kategori Formu",
+  elements: [
+    {
+      type: "text",
+      name: "name",
+      title: "Kategori İsmi",
+      isRequired: true
+    }
+  ],
+  showQuestionNumbers: false
+};
+
+function showSurvey(data, callback) {
+  // Mevcut survey container varsa temizle
+  $("#surveyContainer").remove();
+  
+  // Yeni container oluştur
+  const surveyContainer = $('<div>', {
+    id: 'surveyContainer',
+    class: 'modal fade',
+    tabindex: '-1',
+    role: 'dialog'
+  }).append(
+    $('<div>', {
+      class: 'modal-dialog',
+      role: 'document'
+    }).append(
+      $('<div>', {
+        class: 'modal-content'
+      }).append(
+        $('<div>', {
+          class: 'modal-body',
+          id: 'surveyElement'
+        })
+      )
+    )
+  );
+
+  // Container'ı body'e ekle
+  $('body').append(surveyContainer);
+
+  // Survey'i oluştur
+  const survey = new Survey.Model(categorySurveyJson);
+  
+  // Eğer data varsa yükle
+  if (data) {
+    survey.data = data;
+  }
+
+  // Complete handler'ı ekle
+  survey.onComplete.add((surveyData) => {
+    callback(surveyData);
+    $("#surveyContainer").modal('hide');
+  });
+
+  // Survey'i render et
+  $("#surveyElement").Survey({ model: survey });
+
+  // Modal'ı göster
+  $("#surveyContainer").modal('show');
+}
+
+function reloadCategories() {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    alert("Önce giriş yapmalısınız!");
+    window.location.href = 'login.html';
+    return;
+  }
+  $.ajax({
+    url: `${API_URL}/categories`,
+    method: "GET",
+    headers: {
+      "Authorization": `Bearer ${token}`
+    },
+    success: function(res) {
+      categoriesTable.clear();
+      res.forEach(cat => {
+        categoriesTable.row.add([
+          cat.name,
+          `
+            <button class="btn btn-sm btn-info btn-edit" data-id="${cat._id}">Düzenle</button>
+            <button class="btn btn-sm btn-danger btn-delete" data-id="${cat._id}">Sil</button>
+          `
+        ]);
+      });
+      categoriesTable.draw();
+    },
+    error: function(err) {
+      console.error(err);
+      alert("Kategoriler getirilemedi!");
+    }
+  });
+}
+
+function createCategory(data) {
+  const token = localStorage.getItem('token');
+  const postData = { name: data.data.name };
+  $.ajax({
+    url: `${API_URL}/categories`,
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${token}`
+    },
+    data: JSON.stringify(postData),
+    contentType: "application/json",
+    success: function(res) {
+      alert("Kategori eklendi!");
+      reloadCategories();
+    },
+    error: function(err) {
+      console.error(err);
+      alert("Kategori eklenirken hata oluştu!");
+    }
+  });
+}
+
+function updateCategory(data, categoryId) {
+  const token = localStorage.getItem('token');
+  const putData = { name: data.data.name };
+  $.ajax({
+    url: `${API_URL}/categories/${categoryId}`,
+    method: "PUT",
+    headers: {
+      "Authorization": `Bearer ${token}`
+    },
+    data: JSON.stringify(putData),
+    contentType: "application/json",
+    success: function(res) {
+      alert("Kategori güncellendi!");
+      reloadCategories();
+    },
+    error: function(err) {
+      console.error(err);
+      alert("Kategori güncellenirken hata oluştu!");
+    }
+  });
+}
+
+$(document).ready(function(){
+  // DataTable init
+  categoriesTable = $('#categoriesTable').DataTable();
+
+  // Delegation for edit/delete
+  $('#categoriesTable tbody').on('click', '.btn-edit', function(){
+    const categoryId = $(this).data('id');
+    const token = localStorage.getItem('token');
+    $.ajax({
+      url: `${API_URL}/categories/${categoryId}`,
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${token}`
+      },
+      success: function(cat) {
+        const surveyData = { name: cat.name };
+        showSurvey(surveyData, (data) => updateCategory(data, categoryId));
+      },
+      error: function(err) {
+        console.error(err);
+        alert("Kategori bilgisi alınamadı!");
+      }
+    });
+  });
+
+  $('#categoriesTable tbody').on('click', '.btn-delete', function(){
+    const categoryId = $(this).data('id');
+    const token = localStorage.getItem('token');
+    if (confirm("Kategoriyi silmek istediğinize emin misiniz?")) {
+      $.ajax({
+        url: `${API_URL}/categories/${categoryId}`,
+        method: "DELETE",
+        headers: {
+          "Authorization": `Bearer ${token}`
+        },
+        success: function(res) {
+          alert("Kategori silindi.");
+          reloadCategories();
+        },
+        error: function(err) {
+          console.error(err);
+          alert("Kategori silinirken hata oluştu!");
+        }
+      });
+    }
+  });
+
+  // "Yeni Kategori Ekle" butonu
+  $('#btn-new-category').on('click', function(){
+    showSurvey(null, createCategory);
+  });
+
+  // sayfa yüklenince yükle
+  reloadCategories();
+});
+
+// config.js
+/**
+ * Projenin backend API'sine erişim için URL bilgisi
+ * Gerekirse burayı kendi backend port'unuza göre güncelleyin.
+ */
+const API_URL = 'http://localhost:4000/api';
+
+// login.js
+/**
+ * Login sayfasındaki SurveyJS formu
+ */
+Survey.StylesManager.applyTheme("modern");
+
+const loginJson = {
+  title: "Giriş Yap",
+  elements: [
+    {
+      type: "text",
+      name: "email",
+      title: "E-mail",
+      isRequired: true
+    },
+    {
+      type: "text",
+      name: "password",
+      title: "Şifre",
+      isRequired: true,
+      inputType: "password"  // Add this line
+    }
+  ]
+};
+
+function sendLoginData(data) {
+  const postData = data.data; // { username: '...', password: '...' }
+  $.ajax({
+    url: `${API_URL}/auth/login`,
+    method: "POST",
+    data: JSON.stringify(postData),
+    contentType: "application/json",
+    success: function(res) {
+      alert(res.message);
+      if (res.token) {
+        // Token'ı sakla
+        localStorage.setItem('token', res.token);
+        // Anasayfaya veya tasks.html'e yönlendirelim
+        window.location.href = 'index.html';
+      }
+    },
+    error: function(err) {
+      console.error(err);
+      alert("Giriş başarısız! Hatalı kullanıcı adı veya şifre.");
+    }
+  });
+}
+
+const survey = new Survey.Model(loginJson);
+survey.onComplete.add(sendLoginData);
+
+$(document).ready(function() {
+  $("#surveyElement").Survey({ model: survey });
+});
+
+
+// register.js
+/**
+ * Register sayfasındaki SurveyJS formu
+ */
+Survey.StylesManager.applyTheme("modern");
+
+const registerJson = {
+  title: "Kayıt Ol",
+  elements: [
+    {
+      type: "text",
+      name: "email",
+      title: "E-mail",
+      isRequired: true
+    },
+        {
+      type: "text",
+      name: "password",
+      title: "Şifre",
+      isRequired: true,
+      inputType: "password"  // Add this line
+    }
+  ]
+};
+
+function sendRegisterData(data) {
+  const postData = data.data; // { username: '...', password: '...' }
+  $.ajax({
+    url: `${API_URL}/auth/register`,
+    method: "POST",
+    data: JSON.stringify(postData),
+    contentType: "application/json",
+    success: function(res) {
+      alert(res.message);
+      // Başarılı kayıt sonrası login sayfasına yönlendirelim
+      window.location.href = 'login.html';
+    },
+    error: function(err) {
+      console.error(err);
+      alert("Kayıt başarısız! Kullanıcı adı zaten alınmış olabilir veya başka bir hata oluştu.");
+    }
+  });
+}
+
+const survey = new Survey.Model(registerJson);
+survey.onComplete.add(sendRegisterData);
+
+$(document).ready(function() {
+  $("#surveyElement").Survey({ model: survey });
+});
+
+
+// tasks.js
+/**
+ * Görevler sayfası:
+ * - DataTables ile listeleme
+ * - "Yeni Görev Ekle" butonu -> SurveyJS ile form açıp ekleme
+ * - Satır bazında güncelleme / silme
+ */
+Survey.StylesManager.applyTheme("modern");
+
+let tasksTable;
+
+const taskSurveyJson = {
+  title: "Görev Formu",
+  elements: [
+    {
+      type: "text",
+      name: "title",
+      title: "Görev Başlığı",
+      isRequired: true
+    },
+    {
+      type: "text",
+      name: "description",
+      title: "Açıklama"
+    },
+    {
+      type: "comment",
+      name: "categories",
+      title: "Kategori ID'leri (virgülle ayırın)",
+    }
+  ],
+  showQuestionNumbers: false
+};
+
+function showSurvey(data, callback) {
+  // Mevcut survey container varsa temizle
+  $("#surveyContainer").remove();
+  
+  // Yeni container oluştur
+  const surveyContainer = $('<div>', {
+    id: 'surveyContainer',
+    class: 'modal fade',
+    tabindex: '-1',
+    role: 'dialog'
+  }).append(
+    $('<div>', {
+      class: 'modal-dialog modal-lg',
+      role: 'document'
+    }).append(
+      $('<div>', {
+        class: 'modal-content'
+      }).append(
+        $('<div>', {
+          class: 'modal-body',
+          id: 'surveyElement'
+        })
+      )
+    )
+  );
+
+  // Container'ı body'e ekle
+  $('body').append(surveyContainer);
+
+  // Survey'i oluştur
+  const survey = new Survey.Model(taskSurveyJson);
+  
+  // Eğer data varsa yükle
+  if (data) {
+    survey.data = data;
+  }
+
+  // Complete handler'ı ekle
+  survey.onComplete.add((surveyData) => {
+    callback(surveyData);
+    $("#surveyContainer").modal('hide');
+  });
+
+  // Survey'i render et
+  $("#surveyElement").Survey({ model: survey });
+
+  // Modal'ı göster
+  $("#surveyContainer").modal('show');
+}
+
+function reloadTasks() {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    alert("Önce giriş yapmalısınız!");
+    window.location.href = 'login.html';
+    return;
+  }
+  $.ajax({
+    url: `${API_URL}/tasks`,
+    method: "GET",
+    headers: {
+      "Authorization": `Bearer ${token}`
+    },
+    success: function(res) {
+      tasksTable.clear();
+      res.forEach(task => {
+        let categoryNames = "";
+        if (task.categories && Array.isArray(task.categories)) {
+          categoryNames = task.categories.map(cat => cat.name).join(", ");
+        }
+        tasksTable.row.add([
+          task.title,
+          task.description || "",
+          categoryNames,
+          `
+            <button class="btn btn-sm btn-info btn-edit" data-id="${task._id}">Düzenle</button>
+            <button class="btn btn-sm btn-danger btn-delete" data-id="${task._id}">Sil</button>
+          `
+        ]);
+      });
+      tasksTable.draw();
+    },
+    error: function(err) {
+      console.error(err);
+      alert("Görevler getirilemedi!");
+    }
+  });
+}
+
+function createTask(data) {
+  const token = localStorage.getItem('token');
+  const postData = {
+    title: data.data.title,
+    description: data.data.description,
+  };
+  if (data.data.categories) {
+    const catArr = data.data.categories.split(",").map(item => item.trim());
+    postData.categories = catArr;
+  }
+
+  $.ajax({
+    url: `${API_URL}/tasks`,
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${token}`
+    },
+    data: JSON.stringify(postData),
+    contentType: "application/json",
+    success: function(res) {
+      alert("Görev eklendi!");
+      reloadTasks();
+    },
+    error: function(err) {
+      console.error(err);
+      alert("Görev eklenirken hata oluştu!");
+    }
+  });
+}
+
+function updateTask(data, taskId) {
+  const token = localStorage.getItem('token');
+  const putData = {
+    title: data.data.title,
+    description: data.data.description,
+  };
+  if (data.data.categories) {
+    const catArr = data.data.categories.split(",").map(item => item.trim());
+    putData.categories = catArr;
+  }
+
+  $.ajax({
+    url: `${API_URL}/tasks/${taskId}`,
+    method: "PUT",
+    headers: {
+      "Authorization": `Bearer ${token}`
+    },
+    data: JSON.stringify(putData),
+    contentType: "application/json",
+    success: function(res) {
+      alert("Görev güncellendi!");
+      reloadTasks();
+    },
+    error: function(err) {
+      console.error(err);
+      alert("Görev güncellenirken hata oluştu!");
+    }
+  });
+}
+
+$(document).ready(function(){
+  // DataTable init
+  tasksTable = $('#tasksTable').DataTable();
+
+  // Tablodaki butonlara tıklama eventleri
+  $('#tasksTable tbody').on('click', '.btn-edit', function(){
+    const taskId = $(this).data('id');
+    const token = localStorage.getItem('token');
+    
+    $.ajax({
+      url: `${API_URL}/tasks/${taskId}`,
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${token}`
+      },
+      success: function(task) {
+        const surveyData = {
+          title: task.title,
+          description: task.description,
+          categories: task.categories.map(cat => cat._id).join(", ")
+        };
+        showSurvey(surveyData, (data) => updateTask(data, taskId));
+      },
+      error: function(err) {
+        console.error(err);
+        alert("Görev bilgisi alınamadı!");
+      }
+    });
+  });
+
+  $('#tasksTable tbody').on('click', '.btn-delete', function(){
+    const taskId = $(this).data('id');
+    const token = localStorage.getItem('token');
+    if (confirm("Görevi silmek istediğinize emin misiniz?")) {
+      $.ajax({
+        url: `${API_URL}/tasks/${taskId}`,
+        method: "DELETE",
+        headers: {
+          "Authorization": `Bearer ${token}`
+        },
+        success: function(res) {
+          alert(res.message);
+          reloadTasks();
+        },
+        error: function(err) {
+          console.error(err);
+          alert("Görev silinirken hata oluştu!");
+        }
+      });
+    }
+  });
+
+  // "Yeni Görev Ekle" butonu
+  $('#btn-new-task').on('click', function(){
+    showSurvey(null, createTask);
+  });
+
+  // Sayfa yüklenince mevcut görevleri al
+  reloadTasks();
+});
+
+// users.js
+/**
+ * Kullanıcılar sayfası:
+ * - DataTables ile listeleme
+ * - Her kullanıcı satırında silme ve şifre güncelleme
+ */
+Survey.StylesManager.applyTheme("modern");
+
+let usersTable;
+
+const userUpdateSurveyJson = {
+  title: "Kullanıcı Güncelle",
+  elements: [
+    {
+      type: "password",
+      name: "password",
+      title: "Yeni Şifre (Opsiyonel)"
+    }
+  ]
+};
+
+function reloadUsers() {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    alert("Önce giriş yapmalısınız!");
+    window.location.href = 'login.html';
+    return;
+  }
+  $.ajax({
+    url: `${API_URL}/users`,
+    method: "GET",
+    headers: {
+      "Authorization": `Bearer ${token}`
+    },
+    success: function(res) {
+      usersTable.clear();
+      res.forEach(user => {
+        usersTable.row.add([
+          user.email,
+          new Date(user.createdAt).toLocaleString(),
+          `
+            <button class="btn btn-sm btn-info btn-edit" data-id="${user._id}">Güncelle</button>
+            <button class="btn btn-sm btn-danger btn-delete" data-id="${user._id}">Sil</button>
+          `
+        ]);
+      });
+      usersTable.draw();
+    },
+    error: function(err) {
+      console.error(err);
+      alert("Kullanıcılar getirilemedi!");
+    }
+  });
+}
+
+function updateUser(data, userId) {
+  const token = localStorage.getItem('token');
+  const putData = {};
+  if (data.data.password) {
+    putData.password = data.data.password;
+  }
+  $.ajax({
+    url: `${API_URL}/users/${userId}`,
+    method: "PUT",
+    headers: {
+      "Authorization": `Bearer ${token}`
+    },
+    data: JSON.stringify(putData),
+    contentType: "application/json",
+    success: function(res) {
+      alert(res.message);
+      reloadUsers();
+    },
+    error: function(err) {
+      console.error(err);
+      alert("Kullanıcı güncellenirken hata oluştu!");
+    }
+  });
+}
+
+function deleteUser(userId) {
+  const token = localStorage.getItem('token');
+  if (confirm("Kullanıcıyı silmek istediğinize emin misiniz?")) {
+    $.ajax({
+      url: `${API_URL}/users/${userId}`,
+      method: "DELETE",
+      headers: {
+        "Authorization": `Bearer ${token}`
+      },
+      success: function(res) {
+        alert(res.message);
+        reloadUsers();
+      },
+      error: function(err) {
+        console.error(err);
+        alert("Kullanıcı silinirken hata oluştu!");
+      }
+    });
+  }
+}
+
+$(document).ready(function(){
+  // DataTable init
+  usersTable = $('#usersTable').DataTable();
+
+  // Delegation for edit/delete
+  $('#usersTable tbody').on('click', '.btn-edit', function(){
+    const userId = $(this).data('id');
+    const survey = new Survey.Model(userUpdateSurveyJson);
+    survey.onComplete.add((data) => updateUser(data, userId));
+    const surveyWindow = new Survey.SurveyWindow(survey);
+    surveyWindow.show();
+  });
+
+  $('#usersTable tbody').on('click', '.btn-delete', function(){
+    const userId = $(this).data('id');
+    deleteUser(userId);
+  });
+
+  // sayfa yüklenince yükle
+  reloadUsers();
+});
+
+// tasks.html
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Görevler</title>
+  <!-- Bootstrap CSS -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+  />
+  <!-- DataTables CSS -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css"
+  />
+</head>
+<body class="bg-light">
+  <div class="container my-5">
+    <h1 class="mb-4">Görevler</h1>
+    <button id="btn-new-task" class="btn btn-primary mb-3">Yeni Görev Ekle</button>
+    <table id="tasksTable" class="display" style="width:100%">
+      <thead>
+        <tr>
+          <th>Başlık</th>
+          <th>Açıklama</th>
+          <th>Kategoriler</th>
+          <th>İşlemler</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <a href="./index.html" class="btn btn-outline-secondary mt-3">Ana Sayfa</a>
+  </div>
+
+  <!-- jQuery -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- DataTables JS -->
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+  <!-- SurveyJS -->
+  <link href="https://unpkg.com/survey-core@1.10.5/modern.css" type="text/css" rel="stylesheet" />
+  <script src="https://unpkg.com/survey-core@1.10.5/survey.core.min.js"></script>
+<script src="https://unpkg.com/survey-jquery@1.10.5/survey.jquery.min.js"></script>
+  <script src="scripts/config.js"></script>
+  <script src="scripts/tasks.js"></script>
+</body>
+</html>
+
+// users.html
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Kullanıcılar</title>
+  <!-- Bootstrap CSS -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+  />
+  <!-- DataTables CSS -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css"
+  />
+</head>
+<body class="bg-light">
+  <div class="container my-5">
+    <h1 class="mb-4">Kullanıcılar</h1>
+    <table id="usersTable" class="display" style="width:100%">
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th>Oluşturma Tarihi</th>
+          <th>İşlemler</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <a href="./index.html" class="btn btn-outline-secondary mt-3">Ana Sayfa</a>
+  </div>
+
+  <!-- jQuery -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- DataTables JS -->
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+  <!-- SurveyJS -->
+  <link href="https://unpkg.com/survey-core@1.10.5/modern.css" type="text/css" rel="stylesheet" />
+  <script src="https://unpkg.com/survey-core@1.10.5/survey.core.min.js"></script>
+<script src="https://unpkg.com/survey-jquery@1.10.5/survey.jquery.min.js"></script>
+  <script src="scripts/config.js"></script>
+  <script src="scripts/users.js"></script>
+</body>
+</html>
