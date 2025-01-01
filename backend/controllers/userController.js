@@ -1,4 +1,3 @@
-// controllers/userController.js
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
 
@@ -57,6 +56,7 @@ exports.createUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Gelen rol admin ya da user olabilir, aksi halde 'user' olsun
+    // Bu yaklaşım normal projelerde kullanılmaz, sadece örnektir
     let userRole = 'user';
     if (role === 'admin') {
       userRole = 'admin';
