@@ -1,8 +1,3 @@
-/**
- * Kullanıcılar sayfası:
- * - DataTables ile listeleme
- * - Her kullanıcı satırında silme ve şifre güncelleme
- */
 Survey.StylesManager.applyTheme("modern");
 
 let usersTable;
@@ -18,15 +13,26 @@ const userUpdateSurveyJson = {
   ]
 };
 
-function reloadUsers() {
+function reloadUsers(filters = {}) {
   const token = localStorage.getItem('token');
   if (!token) {
     alert("Önce giriş yapmalısınız!");
     window.location.href = 'login.html';
     return;
   }
+
+
+  let queryString = "";
+  if (filters.email) {
+    queryString += `email=${encodeURIComponent(filters.email)}&`;
+  }
+  if (filters.role) {
+    queryString += `role=${encodeURIComponent(filters.role)}&`;
+  }
+
+  // API'ye istek at
   $.ajax({
-    url: `${API_URL}/users`,
+    url: `${API_URL}/users?${queryString}`,
     method: "GET",
     headers: {
       "Authorization": `Bearer ${token}`
@@ -36,6 +42,7 @@ function reloadUsers() {
       res.forEach(user => {
         usersTable.row.add([
           user.email,
+          user.role,
           new Date(user.createdAt).toLocaleString(),
           `
             <button class="btn btn-sm btn-info btn-edit" data-id="${user._id}">Güncelle</button>
@@ -99,6 +106,7 @@ function deleteUser(userId) {
 }
 
 $(document).ready(function(){
+  // DataTable init
   usersTable = $('#usersTable').DataTable();
 
   $('#usersTable tbody').on('click', '.btn-edit', function(){
@@ -114,6 +122,17 @@ $(document).ready(function(){
     deleteUser(userId);
   });
 
-  // sayfa yüklenince yükle
+  $('#btnSearch').on('click', function(){
+    const emailVal = $('#searchEmail').val().trim();
+    const roleVal = $('#searchRole').val().trim();
+    const filters = {
+      email: emailVal,
+      role: roleVal
+    };
+
+    reloadUsers(filters);
+  });
+
+  // Sayfa ilk açıldığında tüm kullanıcıları çekelim
   reloadUsers();
 });
