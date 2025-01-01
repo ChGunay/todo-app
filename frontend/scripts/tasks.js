@@ -1,5 +1,3 @@
-// tasks.js
-
 Survey.StylesManager.applyTheme("modern");
 
 let tasksTable;
@@ -34,6 +32,21 @@ const taskSurveyJson = {
         { value: "inProgress", text: "Devam Ediyor" },
         { value: "done", text: "Tamamlandı" }
       ]
+    },
+    {
+      type: "text",
+      name: "assignee",
+      title: "Atanacak Kullanıcı ID (Opsiyonel)"
+    },
+    {
+      type: "text",
+      name: "startDate",
+      title: "Başlama Tarihi (YYYY-MM-DD)"
+    },
+    {
+      type: "text",
+      name: "endDate",
+      title: "Bitiş Tarihi (YYYY-MM-DD)"
     }
   ],
   showQuestionNumbers: false
@@ -41,14 +54,10 @@ const taskSurveyJson = {
 
 function translateStatus(status) {
   switch (status) {
-    case 'todo':
-      return 'Yapılacak';
-    case 'inProgress':
-      return 'Devam Ediyor';
-    case 'done':
-      return 'Tamamlandı';
-    default:
-      return status;
+    case 'todo': return 'Yapılacak';
+    case 'inProgress': return 'Devam Ediyor';
+    case 'done': return 'Tamamlandı';
+    default: return status;
   }
 }
 
@@ -102,6 +111,7 @@ function showSurvey(data, callback) {
   $("#surveyContainer").modal('show');
 }
 
+// Görev listesini tekrar yüklemek (filtreli / filtresiz)
 function reloadTasks() {
   const token = localStorage.getItem('token');
   if (!token) {
@@ -109,8 +119,33 @@ function reloadTasks() {
     window.location.href = 'login.html';
     return;
   }
+
+  // Filtre alanlarını oku
+  const title = $("#filterTitle").val().trim();
+  const status = $("#filterStatus").val().trim();
+  const assignee = $("#filterAssignee").val().trim();
+  const categoryId = $("#filterCategory").val().trim();
+
+  const startDateMin = $("#filterStartDateMin").val();
+  const startDateMax = $("#filterStartDateMax").val();
+  const endDateMin = $("#filterEndDateMin").val();
+  const endDateMax = $("#filterEndDateMax").val();
+
+  // Query parametreleri oluştur
+  let queryParams = [];
+  if(title)          queryParams.push(`title=${encodeURIComponent(title)}`);
+  if(status)         queryParams.push(`status=${encodeURIComponent(status)}`);
+  if(assignee)       queryParams.push(`assignee=${encodeURIComponent(assignee)}`);
+  if(categoryId)     queryParams.push(`categoryId=${encodeURIComponent(categoryId)}`);
+  if(startDateMin)   queryParams.push(`startDateMin=${encodeURIComponent(startDateMin)}`);
+  if(startDateMax)   queryParams.push(`startDateMax=${encodeURIComponent(startDateMax)}`);
+  if(endDateMin)     queryParams.push(`endDateMin=${encodeURIComponent(endDateMin)}`);
+  if(endDateMax)     queryParams.push(`endDateMax=${encodeURIComponent(endDateMax)}`);
+
+  const queryString = queryParams.length > 0 ? `?${queryParams.join('&')}` : '';
+
   $.ajax({
-    url: `${API_URL}/tasks`,
+    url: `${API_URL}/tasks${queryString}`,
     method: "GET",
     headers: {
       "Authorization": `Bearer ${token}`
@@ -123,14 +158,21 @@ function reloadTasks() {
           categoryNames = task.categories.map(cat => cat.name).join(", ");
         }
 
-        // Status'i Türkçeye çeviriyoruz
         const statusText = translateStatus(task.status);
+        const assigneeEmail = (task.assignee && task.assignee.email) ? task.assignee.email : "-";
+
+        // startDate, endDate görsel format
+        const startDateShow = task.startDate ? new Date(task.startDate).toLocaleDateString() : "-";
+        const endDateShow = task.endDate ? new Date(task.endDate).toLocaleDateString() : "-";
 
         tasksTable.row.add([
           task.title,
           task.description || "",
           categoryNames,
           statusText,
+          assigneeEmail,
+          startDateShow,
+          endDateShow,
           `
             <button class="btn btn-sm btn-info btn-edit" data-id="${task._id}">Düzenle</button>
             <button class="btn btn-sm btn-danger btn-delete" data-id="${task._id}">Sil</button>
@@ -146,17 +188,22 @@ function reloadTasks() {
   });
 }
 
+// Yeni görev oluşturma
 function createTask(data) {
   const token = localStorage.getItem('token');
   const postData = {
     title: data.data.title,
     description: data.data.description,
-    status: data.data.status  // SurveyJS den gelen status
+    status: data.data.status
   };
+
   if (data.data.categories) {
     const catArr = data.data.categories.split(",").map(item => item.trim());
     postData.categories = catArr;
   }
+  if (data.data.assignee)  postData.assignee = data.data.assignee;
+  if (data.data.startDate) postData.startDate = data.data.startDate;
+  if (data.data.endDate)   postData.endDate = data.data.endDate;
 
   $.ajax({
     url: `${API_URL}/tasks`,
@@ -177,19 +224,22 @@ function createTask(data) {
   });
 }
 
+// Görev güncelleme
 function updateTask(data, taskId) {
   const token = localStorage.getItem('token');
-  console.log(data.data);
+
   const putData = {
     title: data.data.title,
     description: data.data.description,
-    status: data.data.status,
-    user: data.data.userId
+    status: data.data.status
   };
   if (data.data.categories) {
     const catArr = data.data.categories.split(",").map(item => item.trim());
     putData.categories = catArr;
   }
+  if (data.data.assignee)  putData.assignee = data.data.assignee;
+  if (data.data.startDate) putData.startDate = data.data.startDate;
+  if (data.data.endDate)   putData.endDate = data.data.endDate;
 
   $.ajax({
     url: `${API_URL}/tasks/${taskId}`,
@@ -218,7 +268,7 @@ $(document).ready(function(){
   $('#tasksTable tbody').on('click', '.btn-edit', function(){
     const taskId = $(this).data('id');
     const token = localStorage.getItem('token');
-    
+
     $.ajax({
       url: `${API_URL}/tasks/${taskId}`,
       method: "GET",
@@ -228,12 +278,14 @@ $(document).ready(function(){
       success: function(task) {
         // categories alanını virgülle birleştiriyoruz
         const categoriesStr = (task.categories || []).map(cat => cat._id).join(", ");
-        // status alanı eklendi
         const surveyData = {
           title: task.title,
           description: task.description,
           categories: categoriesStr,
-          status: task.status
+          status: task.status,
+          assignee: task.assignee ? task.assignee._id : "",
+          startDate: task.startDate ? task.startDate.split('T')[0] : "",
+          endDate: task.endDate ? task.endDate.split('T')[0] : ""
         };
         showSurvey(surveyData, (data) => updateTask(data, taskId));
       },
@@ -271,6 +323,11 @@ $(document).ready(function(){
     showSurvey(null, createTask);
   });
 
-  // Sayfa yüklenince tüm görevleri çekelim
+  // "Filtrele" butonu
+  $('#btnFilter').on('click', function(){
+    reloadTasks();
+  });
+
+  // Sayfa yüklenince ilk seferde tüm görevleri çekelim
   reloadTasks();
 });

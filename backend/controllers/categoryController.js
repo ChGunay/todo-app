@@ -1,3 +1,4 @@
+// controllers/categoryController.js
 const Category = require('../models/Category');
 
 exports.createCategory = async (req, res) => {
@@ -21,7 +22,13 @@ exports.createCategory = async (req, res) => {
 
 exports.getAllCategories = async (req, res) => {
   try {
-    const categories = await Category.find();
+    const { name } = req.query;
+    let filter = {};
+
+    if (name) {
+      filter.name = { $regex: name, $options: 'i' }; 
+    }
+    const categories = await Category.find(filter);
     res.json(categories);
   } catch (error) {
     console.error('Kategori listeleme hatası:', error);
@@ -61,7 +68,6 @@ exports.updateCategory = async (req, res) => {
     res.status(500).json({ message: 'Sunucu hatası.' });
   }
 };
-
 
 exports.deleteCategory = async (req, res) => {
   try {

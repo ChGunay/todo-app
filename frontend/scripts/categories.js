@@ -1,9 +1,4 @@
-/**
- * Kategoriler sayfası:
- * - DataTables ile listeleme
- * - "Yeni Kategori Ekle" butonu -> SurveyJS
- * - Satır bazında güncelleme / silme
- */
+
 Survey.StylesManager.applyTheme("modern");
 
 let categoriesTable;
@@ -58,16 +53,14 @@ function showSurvey(data, callback) {
     survey.data = data;
   }
 
-  // Complete handler'ı ekle
+  // Complete handler
   survey.onComplete.add((surveyData) => {
     callback(surveyData);
     $("#surveyContainer").modal('hide');
   });
 
-  // Survey'i render et
+  // Render et
   $("#surveyElement").Survey({ model: survey });
-
-  // Modal'ı göster
   $("#surveyContainer").modal('show');
 }
 
@@ -78,8 +71,12 @@ function reloadCategories() {
     window.location.href = 'login.html';
     return;
   }
+
+  const nameFilter = $("#filterCategoryName").val().trim();
+  let queryString = nameFilter ? `?name=${encodeURIComponent(nameFilter)}` : '';
+
   $.ajax({
-    url: `${API_URL}/categories`,
+    url: `${API_URL}/categories${queryString}`,
     method: "GET",
     headers: {
       "Authorization": `Bearer ${token}`
@@ -200,6 +197,10 @@ $(document).ready(function(){
     showSurvey(null, createCategory);
   });
 
-  // sayfa yüklenince yükle
+  $('#btnFilterCategory').on('click', function(){
+    reloadCategories();
+  });
+
+
   reloadCategories();
 });

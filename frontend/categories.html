@@ -17,6 +17,16 @@
 <body class="bg-light">
   <div class="container my-5">
     <h1 class="mb-4">Kategoriler</h1>
+    
+    <div class="row g-3 mb-3">
+      <div class="col-md-4">
+        <input id="filterCategoryName" type="text" class="form-control" placeholder="Kategori Adı Ara...">
+      </div>
+      <div class="col-md-2">
+        <button id="btnFilterCategory" class="btn btn-info w-100">Filtrele</button>
+      </div>
+    </div>
+
     <button id="btn-new-category" class="btn btn-primary mb-3">Yeni Kategori Ekle</button>
     <table id="categoriesTable" class="display" style="width:100%">
       <thead>
@@ -39,7 +49,7 @@
   <!-- SurveyJS -->
   <link href="https://unpkg.com/survey-core@1.10.5/modern.css" type="text/css" rel="stylesheet" />
   <script src="https://unpkg.com/survey-core@1.10.5/survey.core.min.js"></script>
-<script src="https://unpkg.com/survey-jquery@1.10.5/survey.jquery.min.js"></script>
+  <script src="https://unpkg.com/survey-jquery@1.10.5/survey.jquery.min.js"></script>
   <script src="scripts/config.js"></script>
   <script src="scripts/categories.js"></script>
 </body>

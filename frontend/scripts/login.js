@@ -1,6 +1,3 @@
-/**
- * Login sayfasındaki SurveyJS formu
- */
 Survey.StylesManager.applyTheme("modern");
 
 const loginJson = {

@@ -1,4 +1,4 @@
-// Task.js
+// models/Task.js
 const mongoose = require('mongoose');
 
 const taskSchema = new mongoose.Schema({
@@ -16,9 +16,21 @@ const taskSchema = new mongoose.Schema({
     }
   ],
   user: {
+    // Bu görevi oluşturan kullanıcının ID'si
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
+  },
+  assignee: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+    // required: false (zorunlu değil)
+  },
+  startDate: {
+    type: Date
+  },
+  endDate: {
+    type: Date
   },
   status: {
     type: String,
