@@ -1,3 +1,4 @@
+// Task.js
 const mongoose = require('mongoose');
 
 const taskSchema = new mongoose.Schema({
@@ -14,6 +15,11 @@ const taskSchema = new mongoose.Schema({
       ref: 'Category'
     }
   ],
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true 
+  },
   createdAt: {
     type: Date,
     default: Date.now
