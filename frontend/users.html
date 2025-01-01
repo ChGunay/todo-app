@@ -1,3 +1,4 @@
+<!-- users.html -->
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -17,16 +18,36 @@
 <body class="bg-light">
   <div class="container my-5">
     <h1 class="mb-4">Kullanıcılar</h1>
+    
+    <!-- Filtre Alanları -->
+    <div class="row mb-3">
+      <div class="col-md-4">
+        <input type="text" class="form-control" id="searchEmail" placeholder="Email ile ara..." />
+      </div>
+      <div class="col-md-3">
+        <select id="searchRole" class="form-select">
+          <option value="">Tümü (Rol)</option>
+          <option value="admin">Admin</option>
+          <option value="user">User</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <button id="btnSearch" class="btn btn-primary w-100">Ara</button>
+      </div>
+    </div>
+
     <table id="usersTable" class="display" style="width:100%">
       <thead>
         <tr>
           <th>Email</th>
+          <th>Rol</th>
           <th>Oluşturma Tarihi</th>
           <th>İşlemler</th>
         </tr>
       </thead>
       <tbody></tbody>
     </table>
+
     <a href="./index.html" class="btn btn-outline-secondary mt-3">Ana Sayfa</a>
   </div>
 
@@ -39,7 +60,9 @@
   <!-- SurveyJS -->
   <link href="https://unpkg.com/survey-core@1.10.5/modern.css" type="text/css" rel="stylesheet" />
   <script src="https://unpkg.com/survey-core@1.10.5/survey.core.min.js"></script>
-<script src="https://unpkg.com/survey-jquery@1.10.5/survey.jquery.min.js"></script>
+  <script src="https://unpkg.com/survey-jquery@1.10.5/survey.jquery.min.js"></script>
+
+  <!-- Config ve Users.js -->
   <script src="scripts/config.js"></script>
   <script src="scripts/users.js"></script>
 </body>
