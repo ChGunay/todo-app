@@ -17,10 +17,8 @@ const categorySurveyJson = {
 };
 
 function showSurvey(data, callback) {
-  // Mevcut survey container varsa temizle
   $("#surveyContainer").remove();
   
-  // Yeni container oluştur
   const surveyContainer = $('<div>', {
     id: 'surveyContainer',
     class: 'modal fade',
@@ -42,24 +40,19 @@ function showSurvey(data, callback) {
     )
   );
 
-  // Container'ı body'e ekle
   $('body').append(surveyContainer);
 
-  // Survey'i oluştur
   const survey = new Survey.Model(categorySurveyJson);
   
-  // Eğer data varsa yükle
   if (data) {
     survey.data = data;
   }
 
-  // Complete handler
   survey.onComplete.add((surveyData) => {
     callback(surveyData);
     $("#surveyContainer").modal('hide');
   });
 
-  // Render et
   $("#surveyElement").Survey({ model: survey });
   $("#surveyContainer").modal('show');
 }
@@ -192,7 +185,6 @@ $(document).ready(function(){
     }
   });
 
-  // "Yeni Kategori Ekle" butonu
   $('#btn-new-category').on('click', function(){
     showSurvey(null, createCategory);
   });

@@ -14,13 +14,13 @@ const loginJson = {
       name: "password",
       title: "Şifre",
       isRequired: true,
-      inputType: "password"  // Add this line
+      inputType: "password" 
     }
   ]
 };
 
 function sendLoginData(data) {
-  const postData = data.data; // { username: '...', password: '...' }
+  const postData = data.data;
   $.ajax({
     url: `${API_URL}/auth/login`,
     method: "POST",
@@ -29,9 +29,7 @@ function sendLoginData(data) {
     success: function(res) {
       alert(res.message);
       if (res.token) {
-        // Token'ı sakla
         localStorage.setItem('token', res.token);
-        // Anasayfaya veya tasks.html'e yönlendirelim
         window.location.href = 'index.html';
       }
     },
