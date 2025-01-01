@@ -2,9 +2,23 @@ const bcrypt = require('bcrypt');
 const User = require('../models/User');
 
 
+// userController.js
 exports.getAllUsers = async (req, res) => {
   try {
-    const users = await User.find().select('-password');
+    const { email, role } = req.query; 
+
+    let query = {};
+
+    if (email) {
+      query.email = { $regex: email, $options: 'i' };
+    }
+
+
+    if (role) {
+      query.role = role;
+    }
+
+    const users = await User.find(query).select('-password');
     res.json(users);
   } catch (error) {
     console.error('Kullanıcı listeleme hatası:', error);
