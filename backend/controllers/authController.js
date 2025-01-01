@@ -20,7 +20,8 @@ exports.login = async (req, res) => {
       return res.status(401).json({ message: 'Yanlış şifre.' });
     }
 
-    const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '1d' });
+    const token = jwt.sign({ userId: user._id, role: user.role }, JWT_SECRET, { expiresIn: '1d' });
+
     res.json({
       message: 'Giriş başarılı.',
       token
@@ -34,7 +35,8 @@ exports.login = async (req, res) => {
 
 exports.register = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, role } = req.body; 
+
     if(!email || !password){
       return res.status(400).json({ message: 'Email ve şifre gereklidir.' });
     }
@@ -47,7 +49,9 @@ exports.register = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({
       email,
-      password: hashedPassword
+      password: hashedPassword,
+      // role: userRole,
+      role: 'user' // normal kayıt olan herkes user olsun
     });
     await newUser.save();
 
