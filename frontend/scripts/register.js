@@ -1,6 +1,4 @@
-/**
- * Register sayfasındaki SurveyJS formu
- */
+
 Survey.StylesManager.applyTheme("modern");
 
 const registerJson = {
@@ -12,18 +10,28 @@ const registerJson = {
       title: "E-mail",
       isRequired: true
     },
-        {
+    {
       type: "text",
       name: "password",
       title: "Şifre",
       isRequired: true,
-      inputType: "password"  // Add this line
+      inputType: "password"
+    },
+    {
+      type: "dropdown",
+      name: "role",
+      title: "Rol Seçiniz",
+      choices: [
+        { value: "user", text: "User" },
+        { value: "admin", text: "Admin" }
+      ],
+      defaultValue: "user"  // Varsayılan user
     }
   ]
 };
 
 function sendRegisterData(data) {
-  const postData = data.data; // { username: '...', password: '...' }
+  const postData = data.data; // { email: '...', password: '...', role: '...' }
   $.ajax({
     url: `${API_URL}/auth/register`,
     method: "POST",

@@ -1,3 +1,4 @@
+
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
@@ -20,7 +21,11 @@ exports.login = async (req, res) => {
       return res.status(401).json({ message: 'Yanlış şifre.' });
     }
 
-    const token = jwt.sign({ userId: user._id, role: user.role }, JWT_SECRET, { expiresIn: '1d' });
+    const token = jwt.sign(
+      { userId: user._id, role: user.role },
+      JWT_SECRET,
+      { expiresIn: '1d' }
+    );
 
     res.json({
       message: 'Giriş başarılı.',
@@ -32,11 +37,9 @@ exports.login = async (req, res) => {
   }
 };
 
-
 exports.register = async (req, res) => {
   try {
     const { email, password, role } = req.body; 
-
     if(!email || !password){
       return res.status(400).json({ message: 'Email ve şifre gereklidir.' });
     }
@@ -47,12 +50,18 @@ exports.register = async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Gönderilen role varsa onu kullan, yoksa default 'user'
+    const userRole = role && (role === 'admin' || role === 'user')
+      ? role
+      : 'user';
+
     const newUser = new User({
       email,
       password: hashedPassword,
-      // role: userRole,
-      role: 'user' // normal kayıt olan herkes user olsun
+      role: userRole
     });
+
     await newUser.save();
 
     res.status(201).json({ message: 'Kullanıcı başarıyla oluşturuldu.' });
