@@ -1,9 +1,5 @@
-/**
- * Görevler sayfası:
- * - DataTables ile listeleme
- * - "Yeni Görev Ekle" butonu -> SurveyJS ile form açıp ekleme
- * - Satır bazında güncelleme / silme
- */
+// tasks.js
+
 Survey.StylesManager.applyTheme("modern");
 
 let tasksTable;
@@ -25,11 +21,36 @@ const taskSurveyJson = {
     {
       type: "comment",
       name: "categories",
-      title: "Kategori ID'leri (virgülle ayırın)",
+      title: "Kategori ID'leri (virgülle ayırın)"
+    },
+    {
+      type: "dropdown",
+      name: "status",
+      title: "Durum",
+      isRequired: true,
+      defaultValue: "todo",
+      choices: [
+        { value: "todo", text: "Yapılacak" },
+        { value: "inProgress", text: "Devam Ediyor" },
+        { value: "done", text: "Tamamlandı" }
+      ]
     }
   ],
   showQuestionNumbers: false
 };
+
+function translateStatus(status) {
+  switch (status) {
+    case 'todo':
+      return 'Yapılacak';
+    case 'inProgress':
+      return 'Devam Ediyor';
+    case 'done':
+      return 'Tamamlandı';
+    default:
+      return status;
+  }
+}
 
 function showSurvey(data, callback) {
   // Mevcut survey container varsa temizle
@@ -101,10 +122,15 @@ function reloadTasks() {
         if (task.categories && Array.isArray(task.categories)) {
           categoryNames = task.categories.map(cat => cat.name).join(", ");
         }
+
+        // Status'i Türkçeye çeviriyoruz
+        const statusText = translateStatus(task.status);
+
         tasksTable.row.add([
           task.title,
           task.description || "",
           categoryNames,
+          statusText,
           `
             <button class="btn btn-sm btn-info btn-edit" data-id="${task._id}">Düzenle</button>
             <button class="btn btn-sm btn-danger btn-delete" data-id="${task._id}">Sil</button>
@@ -125,6 +151,7 @@ function createTask(data) {
   const postData = {
     title: data.data.title,
     description: data.data.description,
+    status: data.data.status  // SurveyJS den gelen status
   };
   if (data.data.categories) {
     const catArr = data.data.categories.split(",").map(item => item.trim());
@@ -152,9 +179,12 @@ function createTask(data) {
 
 function updateTask(data, taskId) {
   const token = localStorage.getItem('token');
+  console.log(data.data);
   const putData = {
     title: data.data.title,
     description: data.data.description,
+    status: data.data.status,
+    user: data.data.userId
   };
   if (data.data.categories) {
     const catArr = data.data.categories.split(",").map(item => item.trim());
@@ -196,10 +226,14 @@ $(document).ready(function(){
         "Authorization": `Bearer ${token}`
       },
       success: function(task) {
+        // categories alanını virgülle birleştiriyoruz
+        const categoriesStr = (task.categories || []).map(cat => cat._id).join(", ");
+        // status alanı eklendi
         const surveyData = {
           title: task.title,
           description: task.description,
-          categories: task.categories.map(cat => cat._id).join(", ")
+          categories: categoriesStr,
+          status: task.status
         };
         showSurvey(surveyData, (data) => updateTask(data, taskId));
       },
@@ -232,10 +266,11 @@ $(document).ready(function(){
     }
   });
 
-
+  // "Yeni Görev Ekle" butonu
   $('#btn-new-task').on('click', function(){
     showSurvey(null, createTask);
   });
 
+  // Sayfa yüklenince tüm görevleri çekelim
   reloadTasks();
 });
