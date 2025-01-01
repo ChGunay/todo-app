@@ -223,7 +223,6 @@ function showSurveyDialog(surveyJson, title, onComplete, existingData = null) {
 }
 
 $(document).ready(function(){
-  // DataTable init
   usersTable = $('#usersTable').DataTable();
 
   $('#usersTable tbody').on('click', '.btn-edit', function(){
@@ -238,18 +237,17 @@ $(document).ready(function(){
     deleteUser(userId);
   });
 
-  // Filtrele butonu
+
   $('#btnSearch').on('click', function(){
     const emailVal = $('#searchEmail').val().trim();
     const roleVal = $('#searchRole').val().trim();
     reloadUsers({ email: emailVal, role: roleVal });
   });
 
-  // Yeni kullanıcı ekleme butonu
   $('#btnNewUser').on('click', function(){
     showSurveyDialog(createUserSurveyJson, "Yeni Kullanıcı Ekle", createUser);
   });
 
-  // Sayfa ilk açıldığında tüm kullanıcıları çekelim
+  
   reloadUsers();
 });
