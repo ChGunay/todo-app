@@ -11,6 +11,8 @@ const userRoutes = require('./routes/userRoutes');
 const taskRoutes = require('./routes/taskRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
 
+const socket = require('./services/socket');
+
 const app = express();
 
 // Middleware'ler
@@ -26,10 +28,12 @@ app.use('/api/categories', categoryRoutes);
 // Node-RED entegrasyonu için server oluştur
 const server = http.createServer(app);
 
+socket.init(server);
+
 // Node-RED ayarları
 const settings = {
-  httpAdminRoot: "/red",                 // Node-RED editör arayüzü
-  httpNodeRoot: "/api",                 // Node-RED flow endpointleri
+  httpAdminRoot: "/red",                
+  httpNodeRoot: "/api",                 
   adminAuth: null,
   userDir: __dirname + "/nodered_data",
   flowFile: __dirname + "/nodered_data/flows.json",
