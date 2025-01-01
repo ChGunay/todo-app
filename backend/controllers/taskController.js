@@ -2,10 +2,9 @@ const Task = require('../models/Task');
 const Category = require('../models/Category');
 
 
-// Yeni görev oluştur
 exports.createTask = async (req, res) => {
   try {
-    const { title, description, categories } = req.body;
+    const { title, description, categories, status } = req.body;
 
     const userId = req.user.userId;
 
@@ -13,7 +12,8 @@ exports.createTask = async (req, res) => {
       title,
       description,
       categories,
-      user: userId 
+      user: userId,
+      status // eğer body'de varsa kullan, yoksa default: 'todo'
     });
     await task.save();
 
@@ -61,7 +61,7 @@ exports.getTask = async (req, res) => {
 exports.updateTask = async (req, res) => {
   try {
     const taskId = req.params.taskId;
-    const { title, description, categories } = req.body;
+    const { title, description, categories, status } = req.body;
     const { userId, role } = req.user;
 
     const task = await Task.findById(taskId);
@@ -79,9 +79,14 @@ exports.updateTask = async (req, res) => {
     if (description !== undefined) {
       task.description = description;
     }
-    if (categories !== undefined){
+    if (categories !== undefined) {
       task.categories = categories;
     }
+    
+    if (status !== undefined) {
+      task.status = status;
+    }
+
     task.updatedAt = Date.now();
     await task.save();
     res.json(task);
@@ -90,6 +95,7 @@ exports.updateTask = async (req, res) => {
     res.status(500).json({ message: 'Sunucu hatası.' });
   }
 };
+
 
 
 exports.deleteTask = async (req, res) => {
