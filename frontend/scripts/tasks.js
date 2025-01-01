@@ -62,10 +62,10 @@ function translateStatus(status) {
 }
 
 function showSurvey(data, callback) {
-  // Mevcut survey container varsa temizle
+ 
   $("#surveyContainer").remove();
   
-  // Yeni container oluştur
+
   const surveyContainer = $('<div>', {
     id: 'surveyContainer',
     class: 'modal fade',
@@ -87,31 +87,25 @@ function showSurvey(data, callback) {
     )
   );
 
-  // Container'ı body'e ekle
   $('body').append(surveyContainer);
 
-  // Survey'i oluştur
+
   const survey = new Survey.Model(taskSurveyJson);
   
-  // Eğer data varsa yükle
   if (data) {
     survey.data = data;
   }
 
-  // Complete handler'ı ekle
   survey.onComplete.add((surveyData) => {
     callback(surveyData);
     $("#surveyContainer").modal('hide');
   });
 
-  // Survey'i render et
   $("#surveyElement").Survey({ model: survey });
 
-  // Modal'ı göster
   $("#surveyContainer").modal('show');
 }
 
-// Görev listesini tekrar yüklemek (filtreli / filtresiz)
 function reloadTasks() {
   const token = localStorage.getItem('token');
   if (!token) {
@@ -120,18 +114,15 @@ function reloadTasks() {
     return;
   }
 
-  // Filtre alanlarını oku
   const title = $("#filterTitle").val().trim();
   const status = $("#filterStatus").val().trim();
   const assignee = $("#filterAssignee").val().trim();
   const categoryId = $("#filterCategory").val().trim();
-
   const startDateMin = $("#filterStartDateMin").val();
   const startDateMax = $("#filterStartDateMax").val();
   const endDateMin = $("#filterEndDateMin").val();
   const endDateMax = $("#filterEndDateMax").val();
 
-  // Query parametreleri oluştur
   let queryParams = [];
   if(title)          queryParams.push(`title=${encodeURIComponent(title)}`);
   if(status)         queryParams.push(`status=${encodeURIComponent(status)}`);
@@ -153,31 +144,7 @@ function reloadTasks() {
     success: function(res) {
       tasksTable.clear();
       res.forEach(task => {
-        let categoryNames = "";
-        if (task.categories && Array.isArray(task.categories)) {
-          categoryNames = task.categories.map(cat => cat.name).join(", ");
-        }
-
-        const statusText = translateStatus(task.status);
-        const assigneeEmail = (task.assignee && task.assignee.email) ? task.assignee.email : "-";
-
-        // startDate, endDate görsel format
-        const startDateShow = task.startDate ? new Date(task.startDate).toLocaleDateString() : "-";
-        const endDateShow = task.endDate ? new Date(task.endDate).toLocaleDateString() : "-";
-
-        tasksTable.row.add([
-          task.title,
-          task.description || "",
-          categoryNames,
-          statusText,
-          assigneeEmail,
-          startDateShow,
-          endDateShow,
-          `
-            <button class="btn btn-sm btn-info btn-edit" data-id="${task._id}">Düzenle</button>
-            <button class="btn btn-sm btn-danger btn-delete" data-id="${task._id}">Sil</button>
-          `
-        ]);
+        addTaskRow(task);
       });
       tasksTable.draw();
     },
@@ -188,7 +155,29 @@ function reloadTasks() {
   });
 }
 
-// Yeni görev oluşturma
+function addTaskRow(task) {
+  console.log('addTaskRow:', task);
+  const statusText = translateStatus(task.status);
+  const assigneeEmail = (task.assignee && task.assignee.email) ? task.assignee.email : "-";
+  const categoryNames = (task.categories || []).map(cat => cat.name).join(", ");
+  const startDateShow = task.startDate ? new Date(task.startDate).toLocaleDateString() : "-";
+  const endDateShow = task.endDate ? new Date(task.endDate).toLocaleDateString() : "-";
+
+  tasksTable.row.add([
+    task.title,
+    task.description || "",
+    categoryNames,
+    statusText,
+    assigneeEmail,
+    startDateShow,
+    endDateShow,
+    `
+      <button class="btn btn-sm btn-info btn-edit" data-id="${task._id}">Düzenle</button>
+      <button class="btn btn-sm btn-danger btn-delete" data-id="${task._id}">Sil</button>
+    `
+  ]);
+}
+
 function createTask(data) {
   const token = localStorage.getItem('token');
   const postData = {
@@ -213,9 +202,10 @@ function createTask(data) {
     },
     data: JSON.stringify(postData),
     contentType: "application/json",
-    success: function(res) {
+    success: function() {
       alert("Görev eklendi!");
-      reloadTasks();
+
+      reloadTasks()
     },
     error: function(err) {
       console.error(err);
@@ -224,10 +214,8 @@ function createTask(data) {
   });
 }
 
-// Görev güncelleme
 function updateTask(data, taskId) {
   const token = localStorage.getItem('token');
-
   const putData = {
     title: data.data.title,
     description: data.data.description,
@@ -249,9 +237,9 @@ function updateTask(data, taskId) {
     },
     data: JSON.stringify(putData),
     contentType: "application/json",
-    success: function(res) {
+    success: function() {
       alert("Görev güncellendi!");
-      reloadTasks();
+
     },
     error: function(err) {
       console.error(err);
@@ -260,11 +248,59 @@ function updateTask(data, taskId) {
   });
 }
 
+function removeTaskFromTable(taskId) {
+  const rowToDelete = $('#tasksTable tbody tr').filter((index, tr) => {
+    const editBtn = $(tr).find('.btn-edit');
+    return editBtn.data('id') === taskId;
+  });
+
+  if (rowToDelete.length > 0) {
+    tasksTable.row(rowToDelete).remove().draw();
+  }
+}
+
+function updateTaskInTable(updatedTask) {
+  const rowToUpdate = $('#tasksTable tbody tr').filter((index, tr) => {
+    const editBtn = $(tr).find('.btn-edit');
+    return editBtn.data('id') === updatedTask._id;
+  });
+
+  if (rowToUpdate.length > 0) {
+    tasksTable.row(rowToUpdate).remove();
+    addTaskRow(updatedTask);
+    tasksTable.draw();
+  }
+}
+
 $(document).ready(function(){
-  // DataTable init
   tasksTable = $('#tasksTable').DataTable();
 
-  // Tablodaki butonlara tıklama eventleri
+
+  const socket = io(API_URL.replace('/api', ''), {
+  });
+
+  socket.on('connect', () => {
+    console.log('Socket.IO sunucusuna bağlandı!', socket.id);
+  });
+
+  socket.on('taskCreated', (newTask) => {
+    console.log('taskCreated event:', newTask);
+    console.log('newTask:', newTask);
+    addTaskRow(newTask);
+    tasksTable.draw();
+  });
+
+  socket.on('taskUpdated', (updatedTask) => {
+    console.log('taskUpdated event:', updatedTask);
+    updateTaskInTable(updatedTask);
+  });
+
+  socket.on('taskDeleted', (deletedTaskId) => {
+    console.log('taskDeleted event:', deletedTaskId);
+    removeTaskFromTable(deletedTaskId);
+  });
+
+
   $('#tasksTable tbody').on('click', '.btn-edit', function(){
     const taskId = $(this).data('id');
     const token = localStorage.getItem('token');
@@ -276,7 +312,6 @@ $(document).ready(function(){
         "Authorization": `Bearer ${token}`
       },
       success: function(task) {
-        // categories alanını virgülle birleştiriyoruz
         const categoriesStr = (task.categories || []).map(cat => cat._id).join(", ");
         const surveyData = {
           title: task.title,
@@ -308,7 +343,6 @@ $(document).ready(function(){
         },
         success: function(res) {
           alert(res.message);
-          reloadTasks();
         },
         error: function(err) {
           console.error(err);
@@ -318,16 +352,14 @@ $(document).ready(function(){
     }
   });
 
-  // "Yeni Görev Ekle" butonu
+
   $('#btn-new-task').on('click', function(){
     showSurvey(null, createTask);
   });
 
-  // "Filtrele" butonu
   $('#btnFilter').on('click', function(){
     reloadTasks();
   });
 
-  // Sayfa yüklenince ilk seferde tüm görevleri çekelim
   reloadTasks();
 });
