@@ -1,40 +1,47 @@
-<!-- users.html -->
 <!DOCTYPE html>
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
   <title>Kullanıcılar</title>
   <!-- Bootstrap CSS -->
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-  />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
   <!-- DataTables CSS -->
-  <link
-    rel="stylesheet"
-    href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css"
-  />
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+  <!-- SurveyJS CSS -->
+  <link href="https://unpkg.com/survey-core@1.10.5/modern.css" type="text/css" rel="stylesheet">
+  <link href="https://unpkg.com/survey-creator-core@1.10.5/survey-creator-core.css" type="text/css" rel="stylesheet">
+  
+  <style>
+    .sv_main { color: black; }
+    .sv_window { position: fixed; }
+    .sv_window_content { padding: 20px; background: white; }
+    .sv_window_title { background-color: #1ab394; color: white; padding: 10px 20px; }
+    .sv_window_overlay { background-color: rgba(0, 0, 0, 0.5); }
+  </style>
 </head>
 <body class="bg-light">
   <div class="container my-5">
     <h1 class="mb-4">Kullanıcılar</h1>
     
-    <!-- Filtre Alanları -->
-    <div class="row mb-3">
-      <div class="col-md-4">
-        <input type="text" class="form-control" id="searchEmail" placeholder="Email ile ara..." />
-      </div>
+
+    <div class="row g-3 mb-3">
       <div class="col-md-3">
+        <input id="searchEmail" type="text" class="form-control" placeholder="Email ara...">
+      </div>
+      <div class="col-md-2">
         <select id="searchRole" class="form-select">
-          <option value="">Tümü (Rol)</option>
-          <option value="admin">Admin</option>
-          <option value="user">User</option>
+          <option value="">Rol (Tümü)</option>
+          <option value="user">user</option>
+          <option value="admin">admin</option>
         </select>
       </div>
       <div class="col-md-2">
-        <button id="btnSearch" class="btn btn-primary w-100">Ara</button>
+        <button id="btnSearch" class="btn btn-info w-100">Filtrele</button>
       </div>
     </div>
+
+
+    <button id="btnNewUser" class="btn btn-primary mb-3">Yeni Kullanıcı Ekle</button>
 
     <table id="usersTable" class="display" style="width:100%">
       <thead>
@@ -51,6 +58,21 @@
     <a href="./index.html" class="btn btn-outline-secondary mt-3">Ana Sayfa</a>
   </div>
 
+
+  <div class="modal fade" id="surveyModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div id="surveyContainer"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- jQuery -->
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
   <!-- Bootstrap JS -->
@@ -58,11 +80,10 @@
   <!-- DataTables JS -->
   <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
   <!-- SurveyJS -->
-  <link href="https://unpkg.com/survey-core@1.10.5/modern.css" type="text/css" rel="stylesheet" />
   <script src="https://unpkg.com/survey-core@1.10.5/survey.core.min.js"></script>
   <script src="https://unpkg.com/survey-jquery@1.10.5/survey.jquery.min.js"></script>
-
-  <!-- Config ve Users.js -->
+  
+  <!-- Config -->
   <script src="scripts/config.js"></script>
   <script src="scripts/users.js"></script>
 </body>
