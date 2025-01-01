@@ -15,7 +15,8 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.9.3",
     "node-red": "^4.0.8",
-    "nodemon": "^3.1.9"
+    "nodemon": "^3.1.9",
+    "socket.io": "^4.8.1"
   },
   "keywords": [],
   "author": "",
