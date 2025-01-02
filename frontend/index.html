@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <title>Todo Uygulaması - Ana Sayfa</title>
-  <!-- Bootstrap CSS -->
   <link
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
@@ -13,35 +12,51 @@
   <div class="container my-5">
     <h1 class="mb-4">Todo Uygulaması - Ana Sayfa</h1>
     <div class="d-grid gap-2">
-      <a href="./login.html" class="btn btn-primary">Giriş Yap</a>
-      <a href="./register.html" class="btn btn-secondary">Kayıt Ol</a>
-      <a href="./tasks.html" class="btn btn-success">Görevler</a>
-      <a href="./categories.html" class="btn btn-info">Kategoriler</a>
-      <!-- Yalnızca Admin'e gösterilecek link -->
+      <a href="./login.html" class="btn btn-primary" id="loginBtn">Giriş Yap</a>
+      <a href="./register.html" class="btn btn-secondary" id="registerBtn">Kayıt Ol</a>
+      <a href="./tasks.html" class="btn btn-success" id="tasksLink">Görevler</a>
+      <a href="./categories.html" class="btn btn-info" id="categoriesLink">Kategoriler</a>
       <a href="./users.html" class="btn btn-warning" id="adminLink">Kullanıcılar</a>
+      <button class="btn btn-danger" id="logoutBtn" onclick="logoutUser()">Çıkış Yap</button>
     </div>
   </div>
-
-  <!-- Bootstrap JS + Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
   <script>
     const token = localStorage.getItem("token");
-    if(!token){
-   
-      document.getElementById("adminLink").style.display = "none";
+    const loginBtn = document.getElementById("loginBtn");
+    const registerBtn = document.getElementById("registerBtn");
+    const tasksLink = document.getElementById("tasksLink");
+    const categoriesLink = document.getElementById("categoriesLink");
+    const adminLink = document.getElementById("adminLink");
+    const logoutBtn = document.getElementById("logoutBtn");
+    if (!token) {
+      loginBtn.style.display = "block";
+      registerBtn.style.display = "block";
+      tasksLink.style.display = "none";
+      categoriesLink.style.display = "none";
+      adminLink.style.display = "none";
+      logoutBtn.style.display = "none";
     } else {
-  
+      loginBtn.style.display = "none";
+      registerBtn.style.display = "none";
+      tasksLink.style.display = "block";
+      categoriesLink.style.display = "block";
+      logoutBtn.style.display = "block";
       const payloadBase64 = token.split('.')[1];
-      if(!payloadBase64) {
-        document.getElementById("adminLink").style.display = "none";
-      } else {
+      if (payloadBase64) {
         const payload = JSON.parse(atob(payloadBase64));
-  
-        if(payload.role !== 'admin'){
-          document.getElementById("adminLink").style.display = "none";
+        if (payload.role === 'admin') {
+          adminLink.style.display = "block";
+        } else {
+          adminLink.style.display = "none";
         }
+      } else {
+        adminLink.style.display = "none";
       }
+    }
+    function logoutUser() {
+      localStorage.removeItem("token");
+      window.location.reload();
     }
   </script>
 </body>
