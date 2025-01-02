@@ -1,0 +1,587 @@
+{
+    "info": {
+      "_postman_id": "b8f1c2c5-6f7f-4a53-9ab1-6d56ac5aad99",
+      "name": "Todo App API",
+      "description": "Node.js Todo Projesi için Postman Koleksiyonu.",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+      {
+        "name": "Auth",
+        "item": [
+          {
+            "name": "Login",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"123456\"\n}"
+              },
+              "url": {
+                "raw": "{{base_url}}/auth/login",
+                "host": [
+                  "{{base_url}}"
+                ],
+                "path": [
+                  "auth",
+                  "login"
+                ]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Register",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"email\": \"newuser@example.com\",\n  \"password\": \"123456\",\n  \"role\": \"user\"\n}"
+              },
+              "url": {
+                "raw": "{{base_url}}/auth/register",
+                "host": [
+                  "{{base_url}}"
+                ],
+                "path": [
+                  "auth",
+                  "register"
+                ]
+              }
+            },
+            "response": []
+          }
+        ]
+      },
+      {
+        "name": "Categories",
+        "item": [
+          {
+            "name": "Create Category",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}",
+                  "type": "text"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"name\": \"Frontend\"\n}"
+              },
+              "url": {
+                "raw": "{{base_url}}/categories",
+                "host": [
+                  "{{base_url}}"
+                ],
+                "path": [
+                  "categories"
+                ]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Get All Categories",
+            "request": {
+              "method": "GET",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}",
+                  "type": "text"
+                }
+              ],
+              "url": {
+                "raw": "{{base_url}}/categories",
+                "host": [
+                  "{{base_url}}"
+                ],
+                "path": [
+                  "categories"
+                ]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Get Category By ID",
+            "request": {
+              "method": "GET",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}",
+                  "type": "text"
+                }
+              ],
+              "url": {
+                "raw": "{{base_url}}/categories/:categoryId",
+                "host": [
+                  "{{base_url}}"
+                ],
+                "path": [
+                  "categories",
+                  ":categoryId"
+                ],
+                "variable": [
+                  {
+                    "key": "categoryId",
+                    "value": "<_id_degeri>"
+                  }
+                ]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Update Category",
+            "request": {
+              "method": "PUT",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}",
+                  "type": "text"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"name\": \"Frontend-updated\"\n}"
+              },
+              "url": {
+                "raw": "{{base_url}}/categories/:categoryId",
+                "host": [
+                  "{{base_url}}"
+                ],
+                "path": [
+                  "categories",
+                  ":categoryId"
+                ],
+                "variable": [
+                  {
+                    "key": "categoryId",
+                    "value": "<_id_degeri>"
+                  }
+                ]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Delete Category",
+            "request": {
+              "method": "DELETE",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}",
+                  "type": "text"
+                }
+              ],
+              "url": {
+                "raw": "{{base_url}}/categories/:categoryId",
+                "host": [
+                  "{{base_url}}"
+                ],
+                "path": [
+                  "categories",
+                  ":categoryId"
+                ],
+                "variable": [
+                  {
+                    "key": "categoryId",
+                    "value": "<_id_degeri>"
+                  }
+                ]
+              }
+            },
+            "response": []
+          }
+        ]
+      },
+      {
+        "name": "Tasks",
+        "item": [
+          {
+            "name": "Create Task (RabbitMQ Gateway)",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}",
+                  "type": "text"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"title\": \"My new task\",\n  \"description\": \"Do something important.\",\n  \"categories\": [\"<categoryId_1>\", \"<categoryId_2>\"],\n  \"status\": \"todo\",\n  \"assignee\": \"<userId>\",\n  \"startDate\": \"2024-01-01T00:00:00Z\",\n  \"endDate\": \"2024-01-05T00:00:00Z\"\n}"
+              },
+              "url": {
+                "raw": "{{base_url}}/tasks",
+                "host": [
+                  "{{base_url}}"
+                ],
+                "path": [
+                  "tasks"
+                ]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Get All Tasks",
+            "request": {
+              "method": "GET",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}",
+                  "type": "text"
+                }
+              ],
+              "url": {
+                "raw": "{{base_url}}/tasks",
+                "host": [
+                  "{{base_url}}"
+                ],
+                "path": [
+                  "tasks"
+                ],
+                "query": [
+                  {
+                    "key": "title",
+                    "value": ""
+                  },
+                  {
+                    "key": "status",
+                    "value": ""
+                  },
+                  {
+                    "key": "assignee",
+                    "value": ""
+                  },
+                  {
+                    "key": "categoryId",
+                    "value": ""
+                  }
+                ]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Get Task By ID",
+            "request": {
+              "method": "GET",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}",
+                  "type": "text"
+                }
+              ],
+              "url": {
+                "raw": "{{base_url}}/tasks/:taskId",
+                "host": [
+                  "{{base_url}}"
+                ],
+                "path": [
+                  "tasks",
+                  ":taskId"
+                ],
+                "variable": [
+                  {
+                    "key": "taskId",
+                    "value": "<_id_degeri>"
+                  }
+                ]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Update Task",
+            "request": {
+              "method": "PUT",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}",
+                  "type": "text"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"title\": \"Updated Task Title\",\n  \"description\": \"Updated description.\",\n  \"status\": \"inProgress\",\n  \"assignee\": \"<userId>\",\n  \"startDate\": \"2024-02-01T00:00:00Z\",\n  \"endDate\": \"2024-02-05T00:00:00Z\",\n  \"categories\": [\"<categoryId>\"]\n}"
+              },
+              "url": {
+                "raw": "{{base_url}}/tasks/:taskId",
+                "host": [
+                  "{{base_url}}"
+                ],
+                "path": [
+                  "tasks",
+                  ":taskId"
+                ],
+                "variable": [
+                  {
+                    "key": "taskId",
+                    "value": "<_id_degeri>"
+                  }
+                ]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Delete Task",
+            "request": {
+              "method": "DELETE",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}",
+                  "type": "text"
+                }
+              ],
+              "url": {
+                "raw": "{{base_url}}/tasks/:taskId",
+                "host": [
+                  "{{base_url}}"
+                ],
+                "path": [
+                  "tasks",
+                  ":taskId"
+                ],
+                "variable": [
+                  {
+                    "key": "taskId",
+                    "value": "<_id_degeri>"
+                  }
+                ]
+              }
+            },
+            "response": []
+          }
+        ]
+      },
+      {
+        "name": "Users (Admin Only)",
+        "item": [
+          {
+            "name": "Get All Users",
+            "request": {
+              "method": "GET",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{adminToken}}",
+                  "type": "text"
+                }
+              ],
+              "url": {
+                "raw": "{{base_url}}/users",
+                "host": [
+                  "{{base_url}}"
+                ],
+                "path": [
+                  "users"
+                ],
+                "query": [
+                  {
+                    "key": "email",
+                    "value": ""
+                  },
+                  {
+                    "key": "role",
+                    "value": ""
+                  }
+                ]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Get User By ID",
+            "request": {
+              "method": "GET",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{adminToken}}",
+                  "type": "text"
+                }
+              ],
+              "url": {
+                "raw": "{{base_url}}/users/:userId",
+                "host": [
+                  "{{base_url}}"
+                ],
+                "path": [
+                  "users",
+                  ":userId"
+                ],
+                "variable": [
+                  {
+                    "key": "userId",
+                    "value": "<_id_degeri>"
+                  }
+                ]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Create User (via Gateway)",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{adminToken}}",
+                  "type": "text"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"email\": \"worker_created@example.com\",\n  \"password\": \"123456\",\n  \"role\": \"admin\"\n}"
+              },
+              "url": {
+                "raw": "{{base_url}}/users",
+                "host": [
+                  "{{base_url}}"
+                ],
+                "path": [
+                  "users"
+                ]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Update User",
+            "request": {
+              "method": "PUT",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{adminToken}}",
+                  "type": "text"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"password\": \"999999\",\n  \"role\": \"user\"\n}"
+              },
+              "url": {
+                "raw": "{{base_url}}/users/:userId",
+                "host": [
+                  "{{base_url}}"
+                ],
+                "path": [
+                  "users",
+                  ":userId"
+                ],
+                "variable": [
+                  {
+                    "key": "userId",
+                    "value": "<_id_degeri>"
+                  }
+                ]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Delete User",
+            "request": {
+              "method": "DELETE",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{adminToken}}",
+                  "type": "text"
+                }
+              ],
+              "url": {
+                "raw": "{{base_url}}/users/:userId",
+                "host": [
+                  "{{base_url}}"
+                ],
+                "path": [
+                  "users",
+                  ":userId"
+                ],
+                "variable": [
+                  {
+                    "key": "userId",
+                    "value": "<_id_degeri>"
+                  }
+                ]
+              }
+            },
+            "response": []
+          }
+        ]
+      }
+    ],
+    "event": [],
+    "variable": [
+      {
+        "key": "base_url",
+        "value": "http://localhost:4000/api",
+        "type": "string"
+      },
+      {
+        "key": "token",
+        "value": "",
+        "type": "string"
+      },
+      {
+        "key": "adminToken",
+        "value": "",
+        "type": "string"
+      }
+    ]
+  }
+  
