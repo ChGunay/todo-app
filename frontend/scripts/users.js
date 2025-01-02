@@ -3,7 +3,6 @@ Survey.StylesManager.applyTheme("modern");
 let usersTable;
 let surveyModal;
 
-
 const createUserSurveyJson = {
   title: "Yeni Kullanıcı Ekle",
   elements: [
@@ -36,7 +35,6 @@ const createUserSurveyJson = {
   completeText: "Kaydet",
   showPreviewBeforeComplete: "showAnsweredQuestions"
 };
-
 
 const updateUserSurveyJson = {
   title: "Kullanıcı Güncelle",
@@ -138,16 +136,13 @@ function createUser(data) {
   });
 }
 
-
 function updateUser(data, userId) {
   const token = localStorage.getItem('token');
   const putData = {};
 
-
   if (data.data.password) {
     putData.password = data.data.password;
   }
-
   if (data.data.role) {
     putData.role = data.data.role;
   }
@@ -171,7 +166,6 @@ function updateUser(data, userId) {
   });
 }
 
-
 function deleteUser(userId) {
   const token = localStorage.getItem('token');
   if (confirm("Kullanıcıyı silmek istediğinize emin misiniz?")) {
@@ -194,28 +188,23 @@ function deleteUser(userId) {
 }
 
 function showSurveyDialog(surveyJson, title, onComplete, existingData = null) {
-
   const modalElement = document.getElementById('surveyModal');
   surveyModal = new bootstrap.Modal(modalElement);
-  
 
   modalElement.querySelector('.modal-title').textContent = title;
-  
 
   const survey = new Survey.Model(surveyJson);
   if (existingData) {
     survey.data = existingData;
   }
-  
+
   survey.onComplete.add((result) => {
     onComplete(result);
     surveyModal.hide();
   });
 
- 
   $("#surveyContainer").Survey({ model: survey });
   surveyModal.show();
-  
 
   modalElement.addEventListener('hidden.bs.modal', function () {
     $("#surveyContainer").empty();
@@ -224,6 +213,18 @@ function showSurveyDialog(surveyJson, title, onComplete, existingData = null) {
 
 $(document).ready(function(){
   usersTable = $('#usersTable').DataTable();
+
+  const socket = io(API_URL.replace('/api', ''), {}); 
+  socket.on('connect', () => {
+    console.log('Socket.IO sunucusuna bağlandı!', socket.id);
+  });
+
+  socket.on('userCreated', (newUser) => {
+    console.log('userCreated event:', newUser);
+
+    reloadUsers();
+  });
+
 
   $('#usersTable tbody').on('click', '.btn-edit', function(){
     const userId = $(this).data('id');
@@ -237,7 +238,6 @@ $(document).ready(function(){
     deleteUser(userId);
   });
 
-
   $('#btnSearch').on('click', function(){
     const emailVal = $('#searchEmail').val().trim();
     const roleVal = $('#searchRole').val().trim();
@@ -248,6 +248,6 @@ $(document).ready(function(){
     showSurveyDialog(createUserSurveyJson, "Yeni Kullanıcı Ekle", createUser);
   });
 
-  
+
   reloadUsers();
 });
