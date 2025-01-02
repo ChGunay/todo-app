@@ -1,0 +1,67 @@
+version: "3"
+
+services:
+  mongodb:
+    image: mongo:4.4
+    container_name: todo-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: todo-rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: pass
+
+  backend:
+    build: ./backend
+    container_name: todo-backend
+    depends_on:
+      - mongodb
+      - rabbitmq
+    ports:
+      - "4000:4000"
+    environment:
+      MONGO_URI: mongodb://mongodb:27017/todo-app
+      PORT: 4000
+      JWT_SECRET: mysupersecret
+      RABBITMQ_URI: amqp://user:pass@rabbitmq:5672
+
+  todo-worker:
+    build: ./backend
+    container_name: todo-worker
+    depends_on:
+      - mongodb
+      - rabbitmq
+    command: ["node", "todoService.js"]
+    environment:
+      MONGO_URI: mongodb://mongodb:27017/todo-app
+      RABBITMQ_URI: amqp://user:pass@rabbitmq:5672
+
+  user-worker:
+    build: ./backend
+    container_name: user-worker
+    depends_on:
+      - mongodb
+      - rabbitmq
+    command: ["node", "userService.js"]
+    environment:
+      MONGO_URI: mongodb://mongodb:27017/todo-app
+      RABBITMQ_URI: amqp://user:pass@rabbitmq:5672
+
+  frontend:
+    build: ./frontend
+    container_name: todo-frontend
+    depends_on:
+      - backend
+    ports:
+      - "3000:80"
+
+volumes:
+  mongo-data:
