@@ -50,7 +50,6 @@ exports.register = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Gönderilen role varsa onu kullan, yoksa default 'user'
     const userRole = role && (role === 'admin' || role === 'user')
       ? role
       : 'user';
