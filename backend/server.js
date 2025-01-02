@@ -7,9 +7,13 @@ const RED = require('node-red');
 
 const { PORT, MONGO_URI } = require('./config/config');
 const authRoutes = require('./routes/authRoutes');
-const userRoutes = require('./routes/userRoutes');
-const taskRoutes = require('./routes/taskRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
+
+const taskRoutes = require('./routes/taskRoutes');
+const userRoutes = require('./routes/userRoutes');
+
+const { connectRabbitMQ } = require('./services/rabbitMQ');
+
 
 const socket = require('./services/socket');
 
@@ -19,18 +23,19 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// API Routes
 app.use('/api/auth', authRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/tasks', taskRoutes);
 app.use('/api/categories', categoryRoutes);
 
-// Node-RED entegrasyonu için server oluştur
+app.use('/api/tasks', taskRoutes);
+app.use('/api/users', userRoutes);
+
+
 const server = http.createServer(app);
+
 
 socket.init(server);
 
-// Node-RED ayarları
+
 const settings = {
   httpAdminRoot: "/red",                
   httpNodeRoot: "/api",                 
@@ -39,23 +44,28 @@ const settings = {
   flowFile: __dirname + "/nodered_data/flows.json",
 };
 
-// Node-RED'i başlat
+
 RED.init(server, settings);
 
-// Node-RED admin ve node endpoint'lerini kullanıma aç
+
 app.use(settings.httpAdminRoot, RED.httpAdmin);
 app.use(settings.httpNodeRoot, RED.httpNode);
+
 
 mongoose
   .connect(MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
-  .then(() => {
+  .then(async () => {
     console.log("MongoDB'ye başarıyla bağlanıldı.");
+
+    await connectRabbitMQ();
+
+
     server.listen(PORT, () => {
       console.log(`Sunucu çalışıyor => http://localhost:${PORT}`);
-      // Node-RED başlat
+   
       RED.start();
     });
   })
